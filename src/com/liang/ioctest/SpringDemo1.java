@@ -14,6 +14,7 @@ public class SpringDemo1 {
 //        传统方式
         UserService userService1 = new UserServiceImpl();
         userService1.save();
+
 //        Spring方式
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserService userService2 = (UserService) applicationContext.getBean("userService");
