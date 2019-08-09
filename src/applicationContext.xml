@@ -1,10 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--
+    属性：
+        id:不可重复，不能有特殊字符
+        name:理论上可重复，可以有特殊字符
+    -->
     <bean id="userService" class="com.liang.ioctest.UserServiceImpl">
+        <property name="name" value="张龙"/>
+    </bean>
+
+    <!--
+    bean的生命周期：
+        init-method:初始化
+        destroy-method:销毁(单例)
+    bean的作用范围scope：
+        singleton：单例
+        prototype：多例
+        request：web项目中，创建类后存入request作用域
+        session：web项目中，创建后存入session作用域中
+        globalsession：porlet环境下使用，否则和session一样
+    -->
+    <bean class="com.liang.beanlifecycle.UserDaoImpl" id="userDao" scope="prototype" init-method="init" destroy-method="destroy">
 
     </bean>
+
+    <!--属性注入-->
+    <!--构造方法的方式-->
+    <bean class="com.liang.attributeinjection.Car" id="car">
+    <constructor-arg name="name" value="bmw"/>
+    <constructor-arg name="price" value="23424234"/>
+    </bean>
+    <!--set方法的方式-->
+    <bean class="com.liang.attributeinjection.Car2" id="car2">
+        <property name="name" value="bc"/>
+        <property name="price" value="123123"/>
+        <property name="car" ref="car"/>
+    </bean>
+    <!--p标签-->
+    <bean class="com.liang.ptest.Car3" id="car3" p:name="bx" p:car-ref="car">
+    </bean>
+    <!--注入数组-->
+    <bean class="com.liang.collectioninjection.CollectionBean" id="collectionBean">
+        <!--数组类型-->
+        <property name="strs">
+            <list>
+                <value>张龙</value>
+                <value>赵虎</value>
+                <value>包拯</value>
+            </list>
+        </property>
+        <!--列表类型-->
+        <property name="list">
+            <list>
+                <value>张龙</value>
+                <value>赵虎</value>
+                <value>包拯</value>
+            </list>
+        </property>
+        <!--<property name="xxx">-->
+        <!--set类型-->
+            <!--<set>-->
+                <!--<value></value>-->
+            <!--</set>-->
+        <!--map类型-->
+            <!--<map>-->
+                <!--<entry key="" value=""></entry>-->
+            <!--</map>-->
+        <!--</property>-->
+
+    </bean>
+
+    <!--导入其他配置文件-->
+    <!--<import resource="applicationContext.xml"/>-->
 
 </beans>
