@@ -1,9 +1,6 @@
 package com.liang.cglibproxy;
 
 import com.liang.iocnotes.UserDAO;
-import com.liang.iocnotes.UserDAOImpl;
-import com.liang.iocnotes.UserService;
-import com.liang.iocnotes.UserServiceImpl;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

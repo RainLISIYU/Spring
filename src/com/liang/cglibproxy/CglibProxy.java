@@ -15,7 +15,7 @@ public class CglibProxy implements MethodInterceptor {
 
     private UserDAO userDAO;
 
-    public CglibProxy(UserDAO userDAO){
+    CglibProxy(UserDAO userDAO){
         this.userDAO = userDAO;
     }
 
