@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--AOP入门-->
+
+    <!--目标对象-->
+    <bean id="productDAO" class="com.liang.aopxmltest.ProductDAOImpl"/>
+    <!--切面类-->
+    <bean id="myAspectXml" class="com.liang.aopxmltest.MyAspectXml"/>
+    <!--通过AOP配置完成对目标类产生代理-->
+    <aop:config>
+        <!--表达式配置那些类的哪些方法要增强-->
+        <aop:pointcut id="product1" expression="execution(* com.liang.aopxmltest.ProductDAOImpl.save(..))"/>
+        <aop:pointcut id="product2" expression="execution(* com.liang.aopxmltest.ProductDAOImpl.find(..))"/>
+        <aop:pointcut id="product3" expression="execution(* com.liang.aopxmltest.ProductDAOImpl.update(..))"/>
+        <aop:pointcut id="product4" expression="execution(* com.liang.aopxmltest.ProductDAOImpl.delete(..))"/>
+        <!--配置切面-->
+        <aop:aspect ref="myAspectXml">
+            <!--前置通知-->
+            <aop:before method="checkPri" pointcut-ref="product1"/>
+            <!--后置通知-->
+            <aop:after-returning method="writeLog" pointcut-ref="product2" returning="result"/>
+            <!--环绕通知-->
+            <aop:around method="around" pointcut-ref="product3"/>
+            <!--异常抛出通知-->
+            <aop:after-throwing method="afterThrowing" pointcut-ref="product3" throwing="ex"/>
+            <!--最终通知-->
+            <aop:after method="last" pointcut-ref="product3"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

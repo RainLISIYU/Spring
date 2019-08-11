@@ -4,6 +4,9 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
+    <!--=======Spring的xml方式入门=====-->
+
     <!--
     属性：
         id:不可重复，不能有特殊字符

@@ -5,7 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd ">
 
-    <!--Spring IOC的注释入门-->
+    <!--======Spring IOC的注释入门========-->
+
     <!--配置组建扫描，哪些包下的类使用IOC注解，需要Component等注解声明类-->
     <!--<context:component-scan base-package="com.liang.iocnotes"/>-->
 
