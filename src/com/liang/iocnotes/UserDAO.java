@@ -8,4 +8,6 @@ public interface UserDAO {
 
     void save();
 
+    void find();
+
 }

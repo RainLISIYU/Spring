@@ -21,6 +21,7 @@ public class IocNoteTest {
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("applicationContext2.xml");
         UserService userService1 = (UserService)classPathXmlApplicationContext.getBean("userService");
         UserService userService2 = (UserService)classPathXmlApplicationContext.getBean("userService");
+        userService1.save();
         System.out.println(userService1);
         System.out.println(userService2);
         classPathXmlApplicationContext.close();

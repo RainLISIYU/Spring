@@ -14,16 +14,21 @@ import org.springframework.stereotype.Repository;
 public class UserDAOImpl implements UserDAO {
 //    没有set方法
 
-    @Value("张龙")
+    /*@Value("张龙")*/
     private String name;
 //    有set方法，注解加在set方法上
-/*    @Value("张龙")
+    @Value("张龙")
     public void setName(String name) {
         this.name = name;
-    }*/
+    }
 
     @Override
     public void save() {
         System.out.println("执行了。。。"+name);
+    }
+
+    @Override
+    public void find() {
+        System.out.println("找到了。。"+name);
     }
 }
