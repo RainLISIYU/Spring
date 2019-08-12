@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--AOP入门-->
+    <!--AOP XML配置方式入门-->
 
     <!--目标对象-->
     <bean id="productDAO" class="com.liang.aopxmltest.ProductDAOImpl"/>

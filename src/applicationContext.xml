@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <!--=======Spring的xml方式入门=====-->
+    <!--=======SpringIOC的xml方式入门=====-->
 
     <!--
     属性：

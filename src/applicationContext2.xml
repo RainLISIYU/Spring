@@ -8,10 +8,16 @@
     <!--======Spring IOC的注释入门========-->
 
     <!--配置组建扫描，哪些包下的类使用IOC注解，需要Component等注解声明类-->
-    <!--<context:component-scan base-package="com.liang.iocnotes"/>-->
+    <!--
+    <context:component-scan base-package="com.liang.iocnotes"/>
+        component-scan对@Component, @Repository, @Service etc 这类注解起作用，即它将bean注册到了容器中
+        component-scan包括了annotation-config
+    -->
 
     <!--在没有扫描的情况下使用注入注解-->
+    <!--annotation-config对@Required, @Autowired etc 这类注解有效，但一定要注意的是，使用此类注解的bean一定是要在bean容器中注册过了的-->
     <context:annotation-config/>
+
     <bean id="userDAO222" class="com.liang.iocnotes.UserDAOImpl"/>
     <bean id="userService" class="com.liang.iocnotes.UserServiceImpl"/>
 </beans>
