@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @date Create in 14:492019/8/10
  */
 //@Component("userDao")//相当于<bean id="" class=""></bean>
-@Repository("userDAO222")
+//@Repository("userDAO222")
 public class UserDAOImpl implements UserDAO {
 //    没有set方法
 

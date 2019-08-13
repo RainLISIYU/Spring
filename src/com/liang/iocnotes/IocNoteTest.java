@@ -12,7 +12,7 @@ public class IocNoteTest {
     @Test
     public void test1(){
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("applicationContext2.xml");
-        UserDAO userDao = (UserDAO) classPathXmlApplicationContext.getBean("userDao");
+        UserDAO userDao = (UserDAO) classPathXmlApplicationContext.getBean("userDAO222");
         userDao.save();
     }
 
