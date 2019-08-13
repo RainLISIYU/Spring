@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--启用注解-->
+    <context:annotation-config/>
+
+    <!--配置DAO-->
+    <bean id="accountDAO" class="com.liang.springtx.AccountDAOImpl">
+        <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
+        <property name="dataSource" ref="c3p0DataSource"/>
+    </bean>
+    <!--配置Service-->
+    <bean id="accountService" class="com.liang.springtx.AccountServiceImpl"/>
+    <!--配置连接池-->
+    <!--引入属性文件-->
+    <!--方式一-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties"/>
+    </bean>
+    <!--配置C3P0连接池-->
+    <bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--配置jdbc模板-->
+    <!--继承了JDBCSupportDao后自带添加dataSource-->
+    <!--<bean id="jdbcTemplate" class=" org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--&lt;!&ndash;<property name="dataSource" ref="dataSource"/>&ndash;&gt;-->
+        <!--<property name="dataSource" ref="c3p0DataSource"/>-->
+    <!--</bean>-->
+
+    <!--配置平台实物管理器：无论哪种方式都必须配置-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="c3p0DataSource"/>
+    </bean>
+
+    <!--配置实物管理模板：编程管理方式需要配置-->
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <!--true是cglib代理，默认是false，采用jdk的代理-->
+    <tx:annotation-driven proxy-target-class="true"/>
+
+    <!--声明式事务管理的xml方式：配置事务的增强-->
+    <tx:advice id="interceptor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--默认为REQUIRED-->
+            <!--read-only="true"只读  timeout过期-->
+            <tx:method name="transfer2" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <!--aop配置-->
+    <aop:config>
+        <aop:pointcut id="pointcut1" expression="execution(* com.liang.springtx.AccountServiceImpl.transfer2(..))"/>
+        <aop:advisor advice-ref="interceptor" pointcut-ref="pointcut1"/>
+    </aop:config>
+
+    <!--声明式事务管理的注释方式-->
+    <!--开启注解-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--然后添加注解@Transactional-->
+
+</beans>
